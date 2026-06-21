@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { ActivityLog, ActivityType } from '../types';
 import { motion } from 'motion/react';
 import { Plus, Bike, Utensils, Zap, ShoppingBag, Leaf, AlertCircle } from 'lucide-react';
