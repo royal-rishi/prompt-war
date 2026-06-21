@@ -1,0 +1,6 @@
+{
+  "name": "EcoTrack Hack",
+  "description": "A gamified carbon footprint tracker and sustainability dashboard.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
