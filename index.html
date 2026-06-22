@@ -1,0 +1,738 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>♻️ CarbonWise · AI footprint coach</title>
+  <!-- Font Awesome 6 (free) -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <!-- Google Font for extra polish -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', system-ui, -apple-system, sans-serif;
+      background: #0b1c16;
+      background-image: radial-gradient(circle at 10% 20%, #15392b, #0a1f17);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 1.8rem;
+      color: #d4ece0;
+    }
+
+    /* glass-morphism premium card */
+    .master-card {
+      max-width: 1200px;
+      width: 100%;
+      background: rgba(18, 42, 33, 0.55);
+      backdrop-filter: blur(16px) saturate(180%);
+      -webkit-backdrop-filter: blur(16px) saturate(180%);
+      border-radius: 56px;
+      padding: 2.2rem 2.5rem;
+      box-shadow: 0 30px 60px -12px rgba(0, 0, 0, 0.8), 0 0 0 1px rgba(110, 200, 150, 0.12);
+      border: 1px solid rgba(90, 190, 150, 0.15);
+      transition: all 0.25s;
+    }
+
+    /* header */
+    .brand {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 0.2rem;
+      flex-wrap: wrap;
+    }
+
+    .brand h1 {
+      font-weight: 700;
+      font-size: 2.4rem;
+      letter-spacing: -0.02em;
+      background: linear-gradient(135deg, #b5f0d0, #6bc7a2);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+    }
+
+    .brand h1 i {
+      background: #1f5c44;
+      padding: 8px 12px;
+      border-radius: 60px;
+      font-size: 1.6rem;
+      color: #c6ffe3;
+      -webkit-text-fill-color: #c6ffe3;
+      background: #1b4f3a;
+      box-shadow: 0 4px 12px rgba(0, 20, 10, 0.4);
+    }
+
+    .badge-ai {
+      background: rgba(40, 130, 100, 0.25);
+      backdrop-filter: blur(4px);
+      padding: 0.5rem 1.5rem;
+      border-radius: 80px;
+      border: 1px solid rgba(100, 210, 160, 0.25);
+      font-weight: 500;
+      font-size: 0.9rem;
+      letter-spacing: 0.3px;
+      color: #b0ebd0;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .badge-ai i {
+      color: #7ae0b5;
+    }
+
+    .sub {
+      margin: 0.5rem 0 1.8rem 0;
+      font-weight: 400;
+      color: #90c9b2;
+      border-left: 3px solid #45b386;
+      padding-left: 1.2rem;
+      font-size: 1rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      align-items: center;
+    }
+
+    .sub i {
+      color: #5dca9e;
+    }
+
+    /* grid */
+    .dashboard-grid {
+      display: grid;
+      grid-template-columns: 1.1fr 1fr;
+      gap: 2rem;
+    }
+
+    /* left panel */
+    .input-panel {
+      background: rgba(10, 30, 23, 0.5);
+      backdrop-filter: blur(8px);
+      border-radius: 40px;
+      padding: 1.8rem 1.6rem;
+      border: 1px solid rgba(70, 170, 130, 0.15);
+    }
+
+    .input-group {
+      margin-bottom: 1.4rem;
+    }
+
+    .input-group label {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 600;
+      color: #c5f0dc;
+      margin-bottom: 6px;
+      font-size: 0.95rem;
+      letter-spacing: 0.2px;
+    }
+
+    .input-group label i {
+      width: 24px;
+      color: #5dca9e;
+      font-size: 1.1rem;
+    }
+
+    .input-group input {
+      width: 100%;
+      padding: 14px 18px;
+      border: 1.5px solid rgba(70, 170, 130, 0.2);
+      border-radius: 60px;
+      background: rgba(0, 0, 0, 0.25);
+      backdrop-filter: blur(4px);
+      font-size: 1rem;
+      font-weight: 500;
+      color: #e5fff2;
+      outline: none;
+      transition: 0.2s;
+      box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.2);
+    }
+
+    .input-group input:focus {
+      border-color: #45b386;
+      background: rgba(0, 20, 12, 0.4);
+      box-shadow: 0 0 0 4px rgba(60, 200, 140, 0.15);
+    }
+
+    .input-group input::placeholder {
+      color: #7ba392;
+      font-weight: 400;
+    }
+
+    .action-row {
+      display: flex;
+      gap: 12px;
+      margin: 1.8rem 0 1.2rem;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      padding: 14px 26px;
+      border: none;
+      border-radius: 80px;
+      font-weight: 600;
+      font-size: 0.95rem;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      background: rgba(255, 255, 255, 0.04);
+      backdrop-filter: blur(4px);
+      color: #d6f5e6;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      border: 1px solid rgba(70, 170, 130, 0.1);
+      flex: 1 1 auto;
+    }
+
+    .btn-primary {
+      background: #1f8b64;
+      color: #02150e;
+      font-weight: 700;
+      border: none;
+      box-shadow: 0 8px 22px -8px #0f3f2b;
+    }
+
+    .btn-primary:hover {
+      background: #2faf80;
+      transform: scale(0.97);
+      box-shadow: 0 6px 18px -4px #1b6b4b;
+    }
+
+    .btn-secondary {
+      background: rgba(40, 100, 78, 0.25);
+      border: 1px solid rgba(70, 170, 130, 0.2);
+    }
+
+    .btn-secondary:hover {
+      background: rgba(60, 150, 120, 0.3);
+    }
+
+    .btn-danger {
+      background: rgba(180, 60, 60, 0.15);
+      border: 1px solid rgba(200, 90, 90, 0.15);
+      color: #f0baba;
+    }
+
+    .btn-danger:hover {
+      background: rgba(200, 70, 70, 0.2);
+    }
+
+    /* footprint summary */
+    .footprint-summary {
+      background: rgba(0, 15, 10, 0.35);
+      backdrop-filter: blur(4px);
+      border-radius: 32px;
+      padding: 1.5rem 1.6rem;
+      margin: 1.5rem 0 0.2rem;
+      border: 1px solid rgba(70, 170, 130, 0.08);
+    }
+
+    .total-label {
+      font-weight: 500;
+      color: #b2dfcc;
+      display: flex;
+      justify-content: space-between;
+      letter-spacing: 0.2px;
+    }
+
+    .total-value {
+      font-size: 3.2rem;
+      font-weight: 700;
+      color: #dbfff0;
+      line-height: 1;
+      margin: 4px 0 6px;
+      display: flex;
+      align-items: baseline;
+      gap: 6px;
+    }
+
+    .total-value small {
+      font-size: 1rem;
+      font-weight: 400;
+      color: #7fb9a2;
+      margin-left: 4px;
+    }
+
+    .meter-wrap {
+      margin-top: 10px;
+      background: rgba(0, 0, 0, 0.3);
+      border-radius: 60px;
+      height: 10px;
+      overflow: hidden;
+      border: 1px solid rgba(70, 170, 130, 0.1);
+    }
+
+    .meter-fill {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, #3fb882, #7ae0b5, #b5f0d0);
+      border-radius: 60px;
+      transition: width 0.35s ease;
+    }
+
+    .insight-badge {
+      margin-top: 1.2rem;
+      background: rgba(30, 80, 60, 0.3);
+      backdrop-filter: blur(4px);
+      border-radius: 60px;
+      padding: 0.7rem 1.4rem;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      border: 1px solid rgba(70, 200, 140, 0.1);
+    }
+
+    .insight-badge i {
+      font-size: 1.3rem;
+      color: #5dca9e;
+    }
+
+    #insightText {
+      font-weight: 500;
+      color: #dcf7ec;
+    }
+
+    .tip-box {
+      margin-top: 1.5rem;
+      padding: 0.9rem 1.2rem;
+      background: rgba(20, 70, 50, 0.3);
+      border-radius: 40px;
+      border-left: 6px solid #2faf80;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      backdrop-filter: blur(4px);
+      color: #d4f5e6;
+      font-weight: 450;
+      font-size: 0.95rem;
+    }
+
+    .tip-box i {
+      font-size: 1.8rem;
+      color: #5dca9e;
+    }
+
+    /* right panel history */
+    .history-panel {
+      background: rgba(10, 30, 23, 0.45);
+      backdrop-filter: blur(8px);
+      border-radius: 40px;
+      padding: 1.8rem 1.4rem;
+      border: 1px solid rgba(70, 170, 130, 0.08);
+      display: flex;
+      flex-direction: column;
+    }
+
+    .history-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1.4rem;
+    }
+
+    .history-header h3 {
+      font-weight: 600;
+      color: #cbf5e4;
+      font-size: 1.2rem;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .history-list {
+      list-style: none;
+      max-height: 340px;
+      overflow-y: auto;
+      padding-right: 4px;
+      flex: 1;
+    }
+
+    .history-list li {
+      background: rgba(0, 20, 12, 0.3);
+      backdrop-filter: blur(4px);
+      margin-bottom: 10px;
+      padding: 14px 18px;
+      border-radius: 60px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border: 1px solid rgba(70, 170, 130, 0.06);
+      transition: 0.1s ease;
+      font-weight: 500;
+      color: #d2f0e2;
+    }
+
+    .history-list li .action-icon {
+      background: rgba(50, 130, 100, 0.2);
+      border-radius: 60px;
+      padding: 4px 16px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: #aee6cf;
+    }
+
+    .history-list li .footprint-badge {
+      background: #1d7a56;
+      color: #daffed;
+      border-radius: 60px;
+      padding: 4px 16px;
+      font-size: 0.85rem;
+      font-weight: 700;
+    }
+
+    .empty-history {
+      color: #7aa392;
+      text-align: center;
+      padding: 2.8rem 0.5rem;
+      font-style: italic;
+      background: rgba(0,0,0,0.1);
+      border-radius: 60px;
+    }
+
+    .clear-btn {
+      background: transparent;
+      border: none;
+      color: #8abba6;
+      font-weight: 500;
+      cursor: pointer;
+      padding: 6px 14px;
+      border-radius: 60px;
+      transition: 0.1s;
+      font-size: 0.9rem;
+    }
+
+    .clear-btn:hover {
+      background: rgba(180, 70, 70, 0.12);
+      color: #f0baba;
+    }
+
+    .legend {
+      margin-top: 1rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px 18px;
+      font-size: 0.75rem;
+      color: #8bbaa8;
+      border-top: 1px solid rgba(70, 170, 130, 0.06);
+      padding-top: 1rem;
+    }
+
+    .legend i {
+      color: #5dca9e;
+      width: 18px;
+    }
+
+    @media (max-width: 780px) {
+      .dashboard-grid {
+        grid-template-columns: 1fr;
+        gap: 1.8rem;
+      }
+      .master-card {
+        padding: 1.5rem;
+      }
+      .brand h1 {
+        font-size: 1.9rem;
+      }
+      .total-value {
+        font-size: 2.6rem;
+      }
+    }
+
+    /* scroll */
+    .history-list::-webkit-scrollbar {
+      width: 4px;
+    }
+    .history-list::-webkit-scrollbar-track {
+      background: rgba(0,0,0,0.1);
+      border-radius: 20px;
+    }
+    .history-list::-webkit-scrollbar-thumb {
+      background: #3f9f7a;
+      border-radius: 20px;
+    }
+
+    /* glow for hackathon feel */
+    .glow-pulse {
+      animation: softGlow 3s infinite alternate;
+    }
+    @keyframes softGlow {
+      0% { box-shadow: 0 0 8px rgba(60, 200, 140, 0.1); }
+      100% { box-shadow: 0 0 25px rgba(60, 200, 140, 0.2); }
+    }
+  </style>
+</head>
+<body>
+<div class="master-card glow-pulse">
+
+  <!-- header -->
+  <div class="brand">
+    <h1><i class="fas fa-leaf"></i> CarbonWise</h1>
+    <span class="badge-ai"><i class="fas fa-microchip"></i> AI coach · live</span>
+  </div>
+  <div class="sub">
+    <span><i class="fas fa-arrow-right" style="margin-right: 8px;"></i> track · reduce · offset</span>
+    <span><i class="fas fa-bolt" style="margin-right: 4px;"></i> personalized insights</span>
+  </div>
+
+  <!-- main grid -->
+  <div class="dashboard-grid">
+    <!-- left panel -->
+    <div class="input-panel">
+      <div class="input-group">
+        <label><i class="fas fa-car-side"></i> Car (km/day)</label>
+        <input type="number" id="carInput" placeholder="e.g. 12" value="10" min="0" step="0.5">
+      </div>
+      <div class="input-group">
+        <label><i class="fas fa-bolt"></i> Electricity (kWh/day)</label>
+        <input type="number" id="energyInput" placeholder="e.g. 7" value="6" min="0" step="0.5">
+      </div>
+      <div class="input-group">
+        <label><i class="fas fa-utensils"></i> Meat meals (per day)</label>
+        <input type="number" id="dietInput" placeholder="e.g. 1.5" value="2" min="0" step="0.5">
+      </div>
+
+      <div class="action-row">
+        <button class="btn btn-primary" id="trackBtn"><i class="fas fa-play"></i> Log action</button>
+        <button class="btn btn-secondary" id="resetBtn"><i class="fas fa-undo-alt"></i> Reset</button>
+      </div>
+
+      <!-- footprint card -->
+      <div class="footprint-summary">
+        <div class="total-label">
+          <span><i class="fas fa-cloud" style="margin-right: 6px;"></i>daily carbon</span>
+          <span>kg CO₂e</span>
+        </div>
+        <div class="total-value" id="totalFootprint">0.0 <small>kg</small></div>
+        <div class="meter-wrap">
+          <div class="meter-fill" id="meterFill" style="width: 0%;"></div>
+        </div>
+        <div class="insight-badge">
+          <i class="fas fa-lightbulb"></i>
+          <span id="insightText">Analyzing your habits...</span>
+        </div>
+      </div>
+
+      <div class="tip-box" id="tipBox">
+        <i class="fas fa-seedling"></i>
+        <span id="tipMessage">🌱 Every small action matters. Log your day.</span>
+      </div>
+    </div>
+
+    <!-- right panel: history -->
+    <div class="history-panel">
+      <div class="history-header">
+        <h3><i class="fas fa-clock-rotate-left"></i> activity log</h3>
+        <button class="clear-btn" id="clearHistoryBtn"><i class="fas fa-trash-can"></i> clear</button>
+      </div>
+      <ul class="history-list" id="historyList">
+        <li class="empty-history"><i class="fas fa-inbox" style="margin-right: 8px;"></i>No entries yet</li>
+      </ul>
+      <div class="legend">
+        <span><i class="fas fa-car"></i> 1km ≈ 0.18 kg</span>
+        <span><i class="fas fa-bolt"></i> 1kWh ≈ 0.42 kg</span>
+        <span><i class="fas fa-utensils"></i> 1 meal ≈ 1.2 kg</span>
+        <span><i class="fas fa-robot"></i> AI‑powered</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  (function() {
+    // ----- constants -----
+    const CAR = 0.18, ENERGY = 0.42, DIET = 1.2;
+
+    // DOM refs
+    const carIn = document.getElementById('carInput');
+    const energyIn = document.getElementById('energyInput');
+    const dietIn = document.getElementById('dietInput');
+    const totalEl = document.getElementById('totalFootprint');
+    const meter = document.getElementById('meterFill');
+    const insightText = document.getElementById('insightText');
+    const tipMsg = document.getElementById('tipMessage');
+    const historyList = document.getElementById('historyList');
+    const trackBtn = document.getElementById('trackBtn');
+    const resetBtn = document.getElementById('resetBtn');
+    const clearBtn = document.getElementById('clearHistoryBtn');
+
+    // state
+    let history = [];
+
+    // ----- helpers -----
+    function calcFootprint(c, e, d) {
+      return (c * CAR) + (e * ENERGY) + (d * DIET);
+    }
+
+    function getValues() {
+      return {
+        car: parseFloat(carIn.value) || 0,
+        energy: parseFloat(energyIn.value) || 0,
+        diet: parseFloat(dietIn.value) || 0
+      };
+    }
+
+    // update dashboard with optional forced total
+    function refreshDashboard(forcedTotal) {
+      let total;
+      if (forcedTotal !== undefined) {
+        total = forcedTotal;
+      } else {
+        const { car, energy, diet } = getValues();
+        total = calcFootprint(car, energy, diet);
+      }
+      const rounded = Math.round(total * 10) / 10;
+      totalEl.innerHTML = `${rounded} <small>kg</small>`;
+
+      // meter: max 20kg
+      let pct = Math.min((total / 20) * 100, 100);
+      meter.style.width = `${pct}%`;
+
+      // insight & tip
+      let insight = '', tip = '';
+      if (total < 2.5) {
+        insight = '🌿 Excellent! You’re a climate leader.';
+        tip = '🌟 Keep going! Consider sharing your habits.';
+      } else if (total < 6) {
+        insight = '📉 Good base. Small tweaks = big impact.';
+        tip = '🚲 Try cycling 2x/week instead of driving.';
+      } else if (total < 11) {
+        insight = '⚠️ Moderate. Focus on energy & diet.';
+        tip = '💡 Unplug devices & reduce meat by 1 meal.';
+      } else if (total < 16) {
+        insight = '🔥 High. Time for a carbon diet.';
+        tip = '🥗 Switch to plant‑based dinners.';
+      } else {
+        insight = '🚨 Intensive. Every change helps.';
+        tip = '🌱 Offset: plant a tree or use public transport.';
+      }
+      insightText.textContent = insight;
+      tipMsg.textContent = tip;
+    }
+
+    // render history
+    function renderHistory() {
+      historyList.innerHTML = '';
+      if (history.length === 0) {
+        historyList.innerHTML = `<li class="empty-history"><i class="fas fa-inbox" style="margin-right: 8px;"></i>No entries yet</li>`;
+        return;
+      }
+      const reversed = [...history].reverse();
+      for (const entry of reversed) {
+        const li = document.createElement('li');
+        const time = entry.timestamp ? new Date(entry.timestamp).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) : 'now';
+        const totalR = Math.round(entry.total * 10) / 10;
+        li.innerHTML = `
+          <span><i class="fas fa-circle" style="color: #4bcb96; font-size: 0.5rem; margin-right: 10px;"></i>${time}</span>
+          <span class="action-icon"><i class="fas fa-car"></i> ${entry.car} · <i class="fas fa-bolt"></i> ${entry.energy} · <i class="fas fa-utensils"></i> ${entry.diet}</span>
+          <span class="footprint-badge">${totalR} kg</span>
+        `;
+        historyList.appendChild(li);
+      }
+    }
+
+    // add entry
+    function addEntry() {
+      const { car, energy, diet } = getValues();
+      const total = calcFootprint(car, energy, diet);
+      history.push({ car, energy, diet, total, timestamp: Date.now() });
+      renderHistory();
+      refreshDashboard(total);
+      // haptic feedback
+      trackBtn.style.transform = 'scale(0.93)';
+      setTimeout(() => trackBtn.style.transform = '', 120);
+    }
+
+    // reset inputs to default
+    function resetDefaults() {
+      carIn.value = 10;
+      energyIn.value = 6;
+      dietIn.value = 2;
+      refreshDashboard();
+      const { car, energy, diet } = getValues();
+      const total = calcFootprint(car, energy, diet);
+      let tip = '';
+      if (total < 2.5) tip = '🌟 Keep going! Consider sharing your habits.';
+      else if (total < 6) tip = '🚲 Try cycling 2x/week instead of driving.';
+      else if (total < 11) tip = '💡 Unplug devices & reduce meat by 1 meal.';
+      else if (total < 16) tip = '🥗 Switch to plant‑based dinners.';
+      else tip = '🌱 Offset: plant a tree or use public transport.';
+      tipMsg.textContent = tip;
+    }
+
+    function clearHistory() {
+      if (history.length === 0) return;
+      history = [];
+      renderHistory();
+      refreshDashboard();
+      tipMsg.textContent = '🗑️ History cleared. Start fresh!';
+      setTimeout(() => {
+        const { car, energy, diet } = getValues();
+        const total = calcFootprint(car, energy, diet);
+        let tip = '';
+        if (total < 2.5) tip = '🌟 Keep going! Consider sharing your habits.';
+        else if (total < 6) tip = '🚲 Try cycling 2x/week instead of driving.';
+        else if (total < 11) tip = '💡 Unplug devices & reduce meat by 1 meal.';
+        else if (total < 16) tip = '🥗 Switch to plant‑based dinners.';
+        else tip = '🌱 Offset: plant a tree or use public transport.';
+        tipMsg.textContent = tip;
+      }, 1000);
+    }
+
+    // ----- event binding -----
+    trackBtn.addEventListener('click', addEntry);
+    resetBtn.addEventListener('click', resetDefaults);
+    clearBtn.addEventListener('click', clearHistory);
+
+    // live update on input
+    [carIn, energyIn, dietIn].forEach(inp => {
+      inp.addEventListener('input', function() {
+        refreshDashboard();
+        // also update tip for live feedback
+        const { car, energy, diet } = getValues();
+        const total = calcFootprint(car, energy, diet);
+        let tip = '';
+        if (total < 2.5) tip = '🌟 Keep going! Consider sharing your habits.';
+        else if (total < 6) tip = '🚲 Try cycling 2x/week instead of driving.';
+        else if (total < 11) tip = '💡 Unplug devices & reduce meat by 1 meal.';
+        else if (total < 16) tip = '🥗 Switch to plant‑based dinners.';
+        else tip = '🌱 Offset: plant a tree or use public transport.';
+        tipMsg.textContent = tip;
+      });
+    });
+
+    // ----- seed demo entry (hackathon wow) -----
+    (function init() {
+      carIn.value = 10;
+      energyIn.value = 6;
+      dietIn.value = 2;
+      const demoTotal = calcFootprint(10, 6, 2);
+      history.push({
+        car: 10,
+        energy: 6,
+        diet: 2,
+        total: demoTotal,
+        timestamp: Date.now() - 1800000
+      });
+      renderHistory();
+      refreshDashboard(demoTotal);
+      tipMsg.textContent = '🚲 Try cycling 2x/week instead of driving.';
+    })();
+  })();
+</script>
+</body>
+</html>
